@@ -1,0 +1,22 @@
+{
+  "name": "binary-search-trees",
+  "version": "1.0.0",
+  "description": "This is odin project js data structure practice",
+  "main": "BST.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/L3OL1N/Binary-Search-Trees.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/L3OL1N/Binary-Search-Trees/issues"
+  },
+  "homepage": "https://github.com/L3OL1N/Binary-Search-Trees#readme",
+  "devDependencies": {
+    "jest": "^28.1.3"
+  }
+}
