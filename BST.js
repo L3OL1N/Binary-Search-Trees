@@ -115,7 +115,7 @@ class Tree{
         if(this.root == null) return levels;
         const queue = [{level:0,node:this.root}];
         while(queue.length){
-            const curr = queue.pop();
+            const curr = queue.shift();
             const node = curr.node;
             if(!map[curr.level]){
                 map[curr.level] = [node.data];
@@ -123,14 +123,14 @@ class Tree{
             else{
                 map[curr.level].push(node.data);
             }
-            if(node.right) queue.push({level:curr.level+1,node:node.right});
             if(node.left) queue.push({level:curr.level+1,node:node.left});
+            if(node.right) queue.push({level:curr.level+1,node:node.right});
         }
-        // let result = [];
-        // for(let el in map){
-        //     result.push(map[el]);
-        // }
-        return map;
+        let result = [];
+        for(let el in map){
+           result.push(map[el]);
+        }
+        return result;
     }
     inOrder(){
         const levels = [];

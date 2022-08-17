@@ -4,7 +4,6 @@ describe("#add node",()=>{
     test("add same return null",()=>{
         const tree = new Tree;
         tree.add(5);
-        
 
         expect(tree.add(5)).toBeNull()
     })
@@ -91,13 +90,13 @@ describe("#search node",()=>{
         expect(tree.find(324).data).toBe(324)
         expect(tree.find(0)).toBeNull()
     })
-    test.skip("node height",()=>{
+    test("node height",()=>{
         const tree = new Tree;
         const unSortData = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
         tree.buildTree(unSortData);
 
-        expect(tree.height(1)).toBe(0)
-        expect(tree.height(324)).toBe(1)
+        expect(tree.height(1)).toBe(2)
+        expect(tree.height(324)).toBe(2)
     })
     test("node depth",()=>{
         const tree = new Tree;
@@ -105,7 +104,7 @@ describe("#search node",()=>{
         tree.buildTree(unSortData);
 
         expect(tree.depth(8)).toBe(0)
-        expect(tree.depth(6345)).toBe(4)
+        expect(tree.depth(6345)).toBe(3)
     })
 })
 describe("#print tree",()=>{

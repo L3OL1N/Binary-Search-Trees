@@ -1,6 +1,6 @@
 const Tree = require("./BST");
 
-const unSortData = [1, 2, 3, 4, 5, 6, 7];
+const unSortData = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 const tree = new Tree;
 
 function sort(arr){
@@ -30,9 +30,10 @@ const level = tree.levelOrderTree();
 // console.log(sortData);
 // console.log(tree.root)
 console.log(level);
-// console.log(level[0]);
-// console.log(level[1]);
-// console.log(level[2]);
+console.log(level[0]);
+console.log(level[1]);
+console.log(level[2]);
+console.log(level[3]);
 
 
 // const queue = [{level:0,node:4},{level:1,node:2},{level:1,node:6}];
