@@ -1,6 +1,13 @@
 const Tree = require("./BST");
 
 describe("#add node",()=>{
+    test("add same return null",()=>{
+        const tree = new Tree;
+        tree.add(5);
+        
+
+        expect(tree.add(5)).toBeNull()
+    })
     test("add root",()=>{
         const tree = new Tree;
         tree.add(5);
@@ -20,6 +27,22 @@ describe("#add node",()=>{
         tree.add(7);
 
         expect(tree.root.right.data).toBe(7)
+    })
+    test("add left right",()=>{
+        const tree = new Tree;
+        tree.add(5);
+        tree.add(3);
+        tree.add(4);
+
+        expect(tree.root.left.right.data).toBe(4)
+    })
+    test("add right left",()=>{
+        const tree = new Tree;
+        tree.add(5);
+        tree.add(7);
+        tree.add(6);
+
+        expect(tree.root.right.left.data).toBe(6)
     })
 })
 describe("#build BST",()=>{
@@ -64,6 +87,25 @@ describe("#search node",()=>{
         tree.buildTree(unSortData);
 
         expect(tree.find(23).data).toBe(23)
+        expect(tree.find(3).data).toBe(3)
+        expect(tree.find(324).data).toBe(324)
+        expect(tree.find(0)).toBeNull()
+    })
+    test.skip("node height",()=>{
+        const tree = new Tree;
+        const unSortData = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+        tree.buildTree(unSortData);
+
+        expect(tree.height(1)).toBe(0)
+        expect(tree.height(324)).toBe(1)
+    })
+    test("node depth",()=>{
+        const tree = new Tree;
+        const unSortData = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+        tree.buildTree(unSortData);
+
+        expect(tree.depth(8)).toBe(0)
+        expect(tree.depth(6345)).toBe(4)
     })
 })
 describe("#print tree",()=>{
@@ -74,5 +116,32 @@ describe("#print tree",()=>{
         const level = tree.levelOrderArray();
 
         expect(level[0]).toBe(tree.root.data)
+    })
+    test("in order",()=>{
+        const tree = new Tree;
+        const unSortData = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+        tree.buildTree(unSortData);
+        const level = tree.inOrder();
+
+        expect(level[0]).toBe(1)
+        expect(level[level.length-1]).toBe(6345)
+    })
+    test("pre order",()=>{
+        const tree = new Tree;
+        const unSortData = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+        tree.buildTree(unSortData);
+        const level = tree.preOrder();
+
+        expect(level[0]).toBe(tree.root.data)
+        expect(level[level.length-1]).toBe(6345)
+    })
+    test("post order",()=>{
+        const tree = new Tree;
+        const unSortData = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+        tree.buildTree(unSortData);
+        const level = tree.postOrder();
+        
+        expect(level[0]).toBe(3)
+        expect(level[level.length-1]).toBe(tree.root.data)
     })
 })

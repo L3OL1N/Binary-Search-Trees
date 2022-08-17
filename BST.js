@@ -68,14 +68,39 @@ class Tree{
         else if(data > node.data){
             return this.find(data,node.right);
         }
-        return null;
     }
+    height(data){
+        const node = this.find(data);
+        if(node == null) return null;
+        const arr = [];
+        function Count(node,height = 0){
+            if(!node) arr.push(height);
+            if(node){
+                Count(node.left,height++);
+                Count(node.right,height++);
+            }
+        }
+        Count(node);
+        return Math.max(...arr);
+    }
+    depth(data,node = this.root){
+            let depth = 1;
+            if(node == null) return null;
+            if(node.data == data) return 0;
+            if(data < node.data){
+                depth +=  this.depth(data,node.left);
+            }
+            else if(data > node.data){
+                depth += this.depth(data,node.right);
+            }
+            return depth;
+        }
+    //print
     levelOrderArray(){
         const levels = [];
         if(this.root == null) return levels;
         const queue = [this.root];
         while(queue.length){
-            const level = [];
             for(let i = 0; i <= queue.length;i++){
                 const node = queue.shift();
                 if(node.left) queue.push(node.left);
@@ -85,6 +110,74 @@ class Tree{
         }
         return levels;
     }
+    levelOrderTree(){
+        const map = {};
+        if(this.root == null) return levels;
+        const queue = [{level:0,node:this.root}];
+        while(queue.length){
+            const curr = queue.pop();
+            const node = curr.node;
+            if(!map[curr.level]){
+                map[curr.level] = [node.data];
+            }
+            else{
+                map[curr.level].push(node.data);
+            }
+            if(node.right) queue.push({level:curr.level+1,node:node.right});
+            if(node.left) queue.push({level:curr.level+1,node:node.left});
+        }
+        // let result = [];
+        // for(let el in map){
+        //     result.push(map[el]);
+        // }
+        return map;
+    }
+    inOrder(){
+        const levels = [];
+        if(this.root == null) return levels;
+        let node = this.root;
+        function Search(node){
+            if(node){
+                Search(node.left);
+                levels.push(node.data);
+                Search(node.right);
+            }
+        }
+        Search(node);
+        
+        return levels;
+    }
+    preOrder(){
+        const levels = [];
+        if(this.root == null) return levels;
+        let node = this.root;
+        function Search(node){
+            if(node){
+                levels.push(node.data);
+                Search(node.left);
+                Search(node.right);
+            }
+        }
+        Search(node);
+        
+        return levels;
+    }
+    postOrder(){
+        const levels = [];
+        if(this.root == null) return levels;
+        let node = this.root;
+        function Search(node){
+            if(node){
+                Search(node.left);
+                Search(node.right);
+                levels.push(node.data);
+            }
+        }
+        Search(node);
+        
+        return levels;
+    }
+    
 }
 
 class Node{
