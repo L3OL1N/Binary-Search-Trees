@@ -106,6 +106,15 @@ describe("#search node",()=>{
         expect(tree.depth(8)).toBe(0)
         expect(tree.depth(6345)).toBe(3)
     })
+    test("not Balanced",()=>{
+        const tree = new Tree;
+        const unSortData = [2,4,6];
+        tree.buildTree(unSortData);
+        tree.add(7);
+        tree.add(8);
+
+        expect(tree.isBalanced()).toBe(false);
+    })
 })
 describe("#print tree",()=>{
     test("level order",()=>{

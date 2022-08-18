@@ -42,6 +42,10 @@ class Tree{
             return searchTree(node);
         }
     }
+    rebalance(){
+        const sortArr = this.inOrder();
+        this.buildTree(sortArr);
+    }
     //search
     min(){
         if(this.root == null) return null;
@@ -84,17 +88,26 @@ class Tree{
         return Math.max(...arr);
     }
     depth(data,node = this.root){
-            let depth = 1;
-            if(node == null) return null;
-            if(node.data == data) return 0;
-            if(data < node.data){
-                depth +=  this.depth(data,node.left);
-            }
-            else if(data > node.data){
-                depth += this.depth(data,node.right);
-            }
-            return depth;
+        let depth = 1;
+        if(node == null) return null;
+        if(node.data == data) return 0;
+        if(data < node.data){
+            depth +=  this.depth(data,node.left);
         }
+        else if(data > node.data){
+            depth += this.depth(data,node.right);
+        }
+        return depth;
+    }
+    isBalanced(node = this.root){
+        if(!node ||(!node.left && !node.right)) return true;
+        let leftDepth = 0;
+        if(node.left) leftDepth = this.height(node.left.data);
+        let rightDepth = 0;   
+        if(node.right) rightDepth = this.height(node.right.data);
+        const diff = Math.abs(leftDepth - rightDepth) <= 1;
+        return diff && this.isBalanced(node.left) && this.isBalanced(node.right);
+    }
     //print
     levelOrderArray(){
         const levels = [];
@@ -206,5 +219,37 @@ function sort(arr){
         return newArr.concat(left,right);
     }
     return mergeSort(uniData);
+}
+// self build tree
+const randomBBST = function(){
+    console.log("------Build a tree------")
+    const tree = new Tree;
+    const randomArr = RandArr();
+    tree.buildTree(randomArr);
+    print(tree);
+    const addArr = [110,150,200];    
+    console.log(`------Add several numbers ${addArr[0]} ${addArr[1]} ${addArr[2]}-------`);
+    for(let i = 0; i < addArr.length; i++){
+        tree.add(addArr[i]);
+    }
+    console.log("Is balance? "+tree.isBalanced());
+    console.log("-----tree rebalance-------")
+    tree.rebalance();
+    print(tree);
+}();
+function print(tree){
+    console.log("Is balance? "+tree.isBalanced());
+    console.log("level order: "+tree.levelOrderArray());
+    console.log("pre order: "+tree.preOrder());
+    console.log("post order: "+tree.postOrder());
+    console.log("in order: "+tree.inOrder());
+}
+function RandArr(){
+    const arr = [];
+    const rand = Math.max(4,parseInt(Math.random()*10 % 8));
+    for(let i = 0; i < rand; i++){
+        arr.push(parseInt(Math.random()*100));
+    }
+    return arr;
 }
 module.exports = Tree;
